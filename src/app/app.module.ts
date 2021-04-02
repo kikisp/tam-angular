@@ -6,9 +6,10 @@ import { LoginComponent } from './pages/login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppService } from './core/app.service';
+import { TestComponent } from './pages/test/test.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent],
+  declarations: [AppComponent, LoginComponent, TestComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
