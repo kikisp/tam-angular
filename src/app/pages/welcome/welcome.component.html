@@ -1,4 +1,4 @@
-<p xmlns="http://www.w3.org/1999/html"> DOBRODOSLI!</p>
+<p xmlns="http://www.w3.org/1999/html"> DOBRODOSLI! {{name}}</p>
 
 <div class="row">
 
@@ -29,7 +29,7 @@
   <ngx-json-viewer [json]="movie" [expanded]="true"></ngx-json-viewer>
  <!--  ovo iznad radi -->
   <div>
-  <button (click)="clickFunction()">Show movie details</button>
+  <button *ngIf="movie != ''"(click)="clickFunction()">Show movie details</button>
   </div>
 
 

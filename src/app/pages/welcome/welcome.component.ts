@@ -19,7 +19,7 @@ interface MovieEx {
   styleUrls: ['./welcome.component.scss']
 })
 export class WelcomeComponent implements OnInit {
-  name = 'Korisnice';
+  name = '';
   movie = '';
   movies: MovieEx[];
   title = '';
@@ -62,8 +62,10 @@ export class WelcomeComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.appService.getWelcome('public').subscribe(
+    this.appService.getUser().subscribe(
       (data: any) => {
+        this.name = data;
+        
       },
       (error: { error: { error_description: any } }) => {
         alert(error.error.error_description);

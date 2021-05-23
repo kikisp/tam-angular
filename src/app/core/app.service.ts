@@ -61,13 +61,13 @@ export class AppService {
       responseType: 'text',
     });
   }
-  getWelcome(path: String) {
-    var endpoint = 'public';
-    if (path === 'private') {
-      endpoint = 'private';
-    }
-    return this.http.get('http://localhost:8080/' + endpoint, {
-      responseType: 'json',
+  getUser() {
+    var endpoint = 'user/me?access_token='+
+        JSON.parse(window.sessionStorage.getItem('token')).access_token;
+    var base = 'http://localhost:8080/'
+    var url = base+endpoint
+    return this.http.get(url, {
+      responseType: 'text',
     });
   }
 
