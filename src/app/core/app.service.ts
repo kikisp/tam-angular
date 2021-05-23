@@ -9,7 +9,7 @@ export class AppService {
 
   login(loginPayload: any) {
     const headers = {
-      Authorization: 'Basic ' + btoa('devglan-client:devglan-secret'),
+      Authorization: 'Basic ' + btoa('mobile:root'),
       'Content-type': 'application/x-www-form-urlencoded',
     };
     return this.http.post(
@@ -17,6 +17,31 @@ export class AppService {
       loginPayload,
       { headers }
     );
+  }
+
+  searchMovies(title: String, year: String){
+    if (title === null && year === null) {
+      return this.http.get('http://www.omdbapi.com/?');
+    }
+    else if (year === null){
+    return this.http.get(
+      'http://www.omdbapi.com/?apikey=afd86cfc&t=' +
+      title,{
+        responseType: 'json'});
+    }
+    else if (title === null) {
+      return this.http.get(
+        'http://www.omdbapi.com/?apikey=afd86cfc&y=' +
+        year, {
+          responseType: 'json'}
+      );
+ }
+    else { return  this.http.get(
+        'http://www.omdbapi.com/?apikey=afd86cfc&t=' +
+        title +
+        '&y=' + year, {
+          responseType: 'json'});
+ }
   }
 
   getUsers() {
@@ -34,6 +59,15 @@ export class AppService {
     }
     return this.http.get('http://localhost:8080/' + endpoint, {
       responseType: 'text',
+    });
+  }
+  getWelcome(path: String) {
+    var endpoint = 'public';
+    if (path === 'private') {
+      endpoint = 'private';
+    }
+    return this.http.get('http://localhost:8080/' + endpoint, {
+      responseType: 'json',
     });
   }
 

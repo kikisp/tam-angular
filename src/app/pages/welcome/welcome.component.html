@@ -1,0 +1,43 @@
+<p xmlns="http://www.w3.org/1999/html"> DOBRODOSLI!</p>
+
+<div class="row">
+
+  <div class="col-md-6 login-container">
+    <h2 style="margin: auto"> :) </h2>
+    <form [formGroup]="welcomeForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="title">Movie title: </label>
+        <input type="text" class="form-control" formControlName="title" id="title" autocomplete="off">
+        <div class="error" *ngIf="welcomeForm.controls['title'].hasError('required') && welcomeForm.controls['title'].touched">Title is required</div>
+      </div>
+      <div class="form-group">
+        <label for="year">Movie year: </label>
+        <input type="year" class="form-control" formControlName="year" id="year" autocomplete="off">
+
+      </div>
+      <button class="btn btn-success" [disabled]="welcomeForm.invalid">Pretrazi filmove</button>
+      <div *ngIf="invalidLogin" class="error">
+        <div>Invalid credentials.</div>
+      </div>
+    </form>
+  </div>
+
+
+<!--
+  <div>{{ movie | json }} </div>
+-->
+  <ngx-json-viewer [json]="movie" [expanded]="true"></ngx-json-viewer>
+ <!--  ovo iznad radi -->
+  <div>
+  <button (click)="clickFunction()">Show movie details</button>
+  </div>
+
+
+    <button (click)="toggleShow()" type="checkbox" >show / hide</button>
+    <div *ngIf="isShown" class="row container-fluid"  id="divshow" >
+    </div>
+
+  <script>
+
+  </script>
+  </div>

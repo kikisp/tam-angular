@@ -37,9 +37,11 @@ export class LoginComponent implements OnInit {
 
     this.appService.login(body.toString()).subscribe(
       (data: any) => {
-        window.sessionStorage.setItem('token', JSON.stringify(data));
+        window.sessionStorage.setItem('token', JSON.stringify(data));//token je set u ses storage
         console.log(window.sessionStorage.getItem('token'));
-        this.router.navigate(['list-user']);
+        this.router.navigate(['welcome']);
+        //nemam list user data, tj ono na koju stranu zelimo da odemo
+        //ako stavim test onda ide na ts
       },
       (error: { error: { error_description: any } }) => {
         alert(error.error.error_description);
