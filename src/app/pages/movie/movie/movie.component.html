@@ -1,1 +1,15 @@
+
 <p>movie works!</p>
+
+<div>
+  <ngx-json-viewer [json]="movie" [expanded]="true"></ngx-json-viewer>
+</div>
+
+<div class="col-md-6 login-container">
+    <div >
+      <label>Insert comment:</label>
+      <input type="text" class="form-control" name="comment" id="comment" autocomplete="off">
+      <button (click)="commentMovie()">Add comment :) </button>
+    </div>
+
+</div>
