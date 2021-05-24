@@ -1,4 +1,5 @@
-<p xmlns="http://www.w3.org/1999/html"> DOBRODOSLI! {{name}}</p>
+<p xmlns="http://www.w3.org/1999/html"> Welcome {{name}}!</p>
+
 
 <div class="row">
 
@@ -26,18 +27,20 @@
 <!--
   <div>{{ movie | json }} </div>
 -->
-  <ngx-json-viewer [json]="movie" [expanded]="true"></ngx-json-viewer>
+  <div>
+    <ngx-json-viewer [json]="movie" [expanded]="true"></ngx-json-viewer>
+  </div>
+
  <!--  ovo iznad radi -->
   <div>
   <button *ngIf="movie != ''"(click)="clickFunction()">Show movie details</button>
   </div>
 
+  <div *ngFor="let item of items">property : {{item}}</div>
 
-    <button (click)="toggleShow()" type="checkbox" >show / hide</button>
+
+   <!-- <button (click)="toggleShow()" type="checkbox" >show / hide</button>
     <div *ngIf="isShown" class="row container-fluid"  id="divshow" >
-    </div>
+    </div-->
 
-  <script>
-
-  </script>
   </div>

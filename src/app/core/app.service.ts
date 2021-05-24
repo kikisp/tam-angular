@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class AppService {
   constructor(private http: HttpClient) {}
-  baseUrl: string = 'http://localhost:8080/users/';
+  baseUrl = 'http://localhost:8080/users/';
 
   login(loginPayload: any) {
     const headers = {
@@ -19,14 +19,14 @@ export class AppService {
     );
   }
 
-  searchMovies(title: String, year: String){
+  searchMovies(title, year){
     if (title === null && year === null) {
       return this.http.get('http://www.omdbapi.com/?');
     }
     else if (year === null){
     return this.http.get(
       'http://www.omdbapi.com/?apikey=afd86cfc&t=' +
-      title,{
+      title, {
         responseType: 'json'});
     }
     else if (title === null) {
@@ -53,7 +53,7 @@ export class AppService {
   }
 
   getTest(path: String) {
-    var endpoint = 'public';
+    let endpoint = 'public';
     if (path === 'private') {
       endpoint = 'private';
     }
@@ -62,10 +62,10 @@ export class AppService {
     });
   }
   getUser() {
-    var endpoint = 'user/me?access_token='+
+    let endpoint = 'user/me?access_token=' +
         JSON.parse(window.sessionStorage.getItem('token')).access_token;
-    var base = 'http://localhost:8080/'
-    var url = base+endpoint
+    let base = 'http://localhost:8080/';
+    let url = base + endpoint;
     return this.http.get(url, {
       responseType: 'text',
     });

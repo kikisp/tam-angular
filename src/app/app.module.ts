@@ -9,10 +9,11 @@ import { AppService } from './core/app.service';
 import { TestComponent } from './pages/test/test.component';
 import { WelcomeComponent } from './pages/welcome/welcome.component';
 import { NgxJsonViewerModule } from 'ngx-json-viewer';
+import { MovieComponent } from './pages/movie/movie/movie.component';
 
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, TestComponent, WelcomeComponent],
+  declarations: [AppComponent, LoginComponent, TestComponent, WelcomeComponent, MovieComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
