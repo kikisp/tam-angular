@@ -19,25 +19,26 @@ interface MovieEx {
   styleUrls: ['./welcome.component.scss']
 })
 export class WelcomeComponent implements OnInit {
+  constructor(
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private appService: AppService
+  ) {}
   name = '';
   movie = '';
   movies: MovieEx[];
   title = '';
   year  = '';
+  items = [];
 
   public welcomeForm = new FormGroup({
     title: new FormControl(),
     year: new FormControl(),
   });
 
-  public movieDetailsForm = new FormControl();
 
   invalidLogin = false;
-  constructor(
-    private formBuilder: FormBuilder,
-    private router: Router,
-    private appService: AppService
-  ) {}
+
   onSubmit() {
    if (this.welcomeForm.invalid) {
       return;
@@ -49,10 +50,16 @@ export class WelcomeComponent implements OnInit {
    this.title = this.welcomeForm.controls.title.value;
    this.year = this.welcomeForm.controls.year.value;
 
-
-   this.appService.searchMovies(this.title.toString(), this.year.toString()).subscribe(
+   this.appService.searchMovies(this.title, this.year).subscribe(
       (data: any) => {
         this.movie = data;
+        window.sessionStorage.setItem('movieToShow', JSON.stringify(this.movie));
+        // for(let key in data)
+         // if(data.hasOwnProperty(key))
+        this.items.push(data.Title);
+        this.items.push(data.Year);
+
+
       },
       (error: { error: { error_description: any } }) => {
         alert(error.error.error_description);
@@ -65,7 +72,7 @@ export class WelcomeComponent implements OnInit {
     this.appService.getUser().subscribe(
       (data: any) => {
         this.name = data;
-        
+
       },
       (error: { error: { error_description: any } }) => {
         alert(error.error.error_description);
@@ -75,15 +82,19 @@ export class WelcomeComponent implements OnInit {
 
 
   clickFunction() {
-    alert("clicked me!");
+    // ovde treba da budemo prosledjeni na movie.html gde ce se prikazati svi detalji o filmu
+
+    this.router.navigate(['movie']);
+
+    // alert('clicked me!');
   }
 
-  isShown: boolean = false ; // hidden by default
+/*  isShown: boolean = false ; // hidden by default
 
   toggleShow() {
    // this.isShown = ! this.isShown;
     if(this.movie != null) this.isShown =true;
-  }
+  }*/
 
 
 
