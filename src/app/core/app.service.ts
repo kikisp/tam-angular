@@ -44,6 +44,19 @@ export class AppService {
  }
   }
 
+
+  giveComment(givenComment: any) {
+    const headers = {
+      Authorization: 'Basic ' + btoa('mobile:root'),
+      'Content-type': 'application/x-www-form-urlencoded',
+    };
+    return this.http.post(
+      'http://localhost:8088/' + 'addCommentOnMovie',
+      givenComment,
+      { headers }
+    );
+  }
+
   getUsers() {
     return this.http.get(
       this.baseUrl +
