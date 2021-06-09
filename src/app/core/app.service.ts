@@ -51,7 +51,7 @@ export class AppService {
       'Content-type': 'application/x-www-form-urlencoded',
     };
     return this.http.post(
-      'http://localhost:8088/' + 'addCommentOnMovie',
+      'http://localhost:8088/',
       givenComment,
       { headers }
     );
@@ -70,7 +70,7 @@ export class AppService {
     if (path === 'private') {
       endpoint = 'private';
     }
-    return this.http.get('http://localhost:8080/' + endpoint, {
+    return this.http.get('http://localhost:8088/' + endpoint, {
       responseType: 'text',
     });
   }

@@ -22,12 +22,23 @@ export class MovieComponent implements OnInit {
   });
 
   newComment = '';
+  test = 'test';
 
   ngOnInit(): void {
     this.movie =  JSON.parse(window.sessionStorage.getItem('movieToShow'));
     this.commentForm.reset();
   }
 
+  commentMovieTest(newComment): void {
+    this.appService.getTest('public').subscribe(
+      (data: any) => {
+        this.test = data;
+      },
+      (error: { error: { error_description: any } }) => {
+        alert(error.error.error_description);
+      }
+    );
+  }
   commentMovie(newComment){
     if (this.commentForm.invalid) {
       return;
