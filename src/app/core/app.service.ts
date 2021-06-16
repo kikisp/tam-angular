@@ -19,42 +19,39 @@ export class AppService {
     );
   }
 
-  searchMovies(title, year){
+  searchMovies(title, year) {
     if (title === null && year === null) {
       return this.http.get('http://www.omdbapi.com/?');
-    }
-    else if (year === null){
-    return this.http.get(
-      'http://www.omdbapi.com/?apikey=afd86cfc&t=' +
-      title, {
-        responseType: 'json'});
-    }
-    else if (title === null) {
+    } else if (year === null) {
       return this.http.get(
-        'http://www.omdbapi.com/?apikey=afd86cfc&y=' +
-        year, {
-          responseType: 'json'}
+        'http://www.omdbapi.com/?apikey=afd86cfc&t=' + title,
+        {
+          responseType: 'json',
+        }
       );
- }
-    else { return  this.http.get(
-        'http://www.omdbapi.com/?apikey=afd86cfc&t=' +
-        title +
-        '&y=' + year, {
-          responseType: 'json'});
- }
+    } else if (title === null) {
+      return this.http.get(
+        'http://www.omdbapi.com/?apikey=afd86cfc&y=' + year,
+        {
+          responseType: 'json',
+        }
+      );
+    } else {
+      return this.http.get(
+        'http://www.omdbapi.com/?apikey=afd86cfc&t=' + title + '&y=' + year,
+        {
+          responseType: 'json',
+        }
+      );
+    }
   }
 
-
-  giveComment(givenComment: any) {
-    const headers = {
-      Authorization: 'Basic ' + btoa('mobile:root'),
-      'Content-type': 'application/x-www-form-urlencoded',
-    };
-    return this.http.post(
-      'http://localhost:8088/',
-      givenComment,
-      { headers }
-    );
+  giveComment(givenComment: string) {
+    const headers = { 'content-type': 'application/json' };
+    return this.http.post('http://localhost:8088/comment', givenComment, {
+      headers,
+      responseType: 'text',
+    });
   }
 
   getUsers() {
@@ -75,8 +72,9 @@ export class AppService {
     });
   }
   getUser() {
-    let endpoint = 'user/me?access_token=' +
-        JSON.parse(window.sessionStorage.getItem('token')).access_token;
+    let endpoint =
+      'user/me?access_token=' +
+      JSON.parse(window.sessionStorage.getItem('token')).access_token;
     let base = 'http://localhost:8080/';
     let url = base + endpoint;
     return this.http.get(url, {

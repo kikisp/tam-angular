@@ -1,64 +1,46 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
-import {Router} from '@angular/router';
-import {AppService} from '../../../core/app.service';
-import {HttpParams} from '@angular/common/http';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AppService } from '../../../core/app.service';
+import { HttpParams } from '@angular/common/http';
 
 @Component({
   selector: 'app-movie',
   templateUrl: './movie.component.html',
-  styleUrls: ['./movie.component.scss']
+  styleUrls: ['./movie.component.scss'],
 })
 export class MovieComponent implements OnInit {
-
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private appService: AppService,
+    private appService: AppService
   ) {}
   movie = '';
   public commentForm = new FormGroup({
     comment: new FormControl(),
   });
 
-  newComment = '';
+  newComment: string = '';
   test = 'test';
 
   ngOnInit(): void {
-    this.movie =  JSON.parse(window.sessionStorage.getItem('movieToShow'));
+    this.movie = JSON.parse(window.sessionStorage.getItem('movieToShow'));
     this.commentForm.reset();
   }
 
-  commentMovieTest(newComment): void {
-    this.appService.getTest('public').subscribe(
-      (data: any) => {
-        this.test = data;
-      },
-      (error: { error: { error_description: any } }) => {
-        alert(error.error.error_description);
-      }
-    );
-  }
-  commentMovie(newComment){
+  commentMovie(newComment) {
     if (this.commentForm.invalid) {
       return;
     }
     // create call to movie service and add comment to DB
-    this.newComment = newComment.toString();
 
-    const body = new HttpParams()
-      .set('comment', this.newComment);
-
-    this.appService.giveComment(body.toString()).subscribe(
+    this.appService.giveComment(this.newComment).subscribe(
       (data: any) => {
-        window.sessionStorage.setItem('comm', JSON.stringify(data));
+        console.log(data);
       },
       (error: { error: { error_description: any } }) => {
-        alert(error.error.error_description);
+        console.log(JSON.stringify(error));
       }
     );
-
-    alert('clicked me!');
   }
-
 }
