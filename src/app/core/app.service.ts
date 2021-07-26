@@ -46,9 +46,9 @@ export class AppService {
     }
   }
 
-  giveComment(givenComment: string) {
+  giveComment(commName) {
     const headers = { 'content-type': 'application/json' };
-    return this.http.post('http://localhost:8088/comment', givenComment, {
+    return this.http.post('http://localhost:8088/comment', commName, {
       headers,
       responseType: 'text',
     });
@@ -71,12 +71,13 @@ export class AppService {
       responseType: 'text',
     });
   }
+
   getUser() {
-    let endpoint =
+    const endpoint =
       'user/me?access_token=' +
       JSON.parse(window.sessionStorage.getItem('token')).access_token;
-    let base = 'http://localhost:8080/';
-    let url = base + endpoint;
+    const base = 'http://localhost:8080/';
+    const url = base + endpoint;
     return this.http.get(url, {
       responseType: 'text',
     });

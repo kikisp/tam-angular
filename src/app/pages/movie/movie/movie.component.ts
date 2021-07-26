@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 import { AppService } from '../../../core/app.service';
 import { HttpParams } from '@angular/common/http';
@@ -15,26 +15,34 @@ export class MovieComponent implements OnInit {
     private router: Router,
     private appService: AppService
   ) {}
+
   movie = '';
+  commentAndName = {
+    username : '',
+    movie: '',
+    comment: ''
+  };
   public commentForm = new FormGroup({
     comment: new FormControl(),
   });
 
-  newComment: string = '';
-  test = 'test';
-
   ngOnInit(): void {
     this.movie = JSON.parse(window.sessionStorage.getItem('movieToShow'));
     this.commentForm.reset();
+    this.commentForm = this.formBuilder.group({
+      comment: ['', Validators.compose([Validators.required])],
+    });
   }
 
-  commentMovie(newComment) {
+  onSubmit() {
     if (this.commentForm.invalid) {
       return;
     }
     // create call to movie service and add comment to DB
-
-    this.appService.giveComment(this.newComment).subscribe(
+    this.commentAndName.comment = this.commentForm.controls.comment.value;
+    this.commentAndName.username = sessionStorage.getItem('username');
+    this.commentAndName.movie = sessionStorage.getItem('movieToShow');
+    this.appService.giveComment(this.commentAndName).subscribe(
       (data: any) => {
         console.log(data);
       },

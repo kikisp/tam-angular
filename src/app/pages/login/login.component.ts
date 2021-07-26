@@ -18,30 +18,28 @@ export class LoginComponent implements OnInit {
     username: new FormControl(),
     password: new FormControl(),
   });
-
-  invalidLogin: boolean = false;
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
     private appService: AppService
   ) {}
 
+
+
   onSubmit() {
     if (this.loginForm.invalid) {
       return;
     }
-    const body = new HttpParams()
+    const body  = new HttpParams()
       .set('username', this.loginForm.controls.username.value)
       .set('password', this.loginForm.controls.password.value)
       .set('grant_type', 'password');
 
     this.appService.login(body.toString()).subscribe(
       (data: any) => {
-        window.sessionStorage.setItem('token', JSON.stringify(data));//token je set u ses storage
+        window.sessionStorage.setItem('token', JSON.stringify(data)); // token je set u session storage
         console.log(window.sessionStorage.getItem('token'));
         this.router.navigate(['welcome']);
-        //nemam list user data, tj ono na koju stranu zelimo da odemo
-        //ako stavim test onda ide na ts
       },
       (error: { error: { error_description: any } }) => {
         alert(error.error.error_description);

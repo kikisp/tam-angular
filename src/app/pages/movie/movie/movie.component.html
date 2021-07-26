@@ -1,15 +1,19 @@
 
-<p>movie works!</p>
+<p align="center" style="font-style: oblique">Movie Information!</p>
 
 <div>
-  <ngx-json-viewer [json]="movie" [expanded]="true"></ngx-json-viewer>
+  <ngx-json-viewer align="center" [json]="movie" [expanded]="true"></ngx-json-viewer>
 </div>
+<br>
+<br>
 
-<div class="col-md-6 login-container">
-    <div >
-      <label>Insert comment:</label>
-      <input type="text" [(ngModel)]="newComment" class="form-control" name="comment" id="newComment" autocomplete="off">
-      <button (click)="commentMovie(newComment)">Add comment :) </button>
-      <div class="error" *ngIf="commentForm.controls['comment'].hasError('required') && commentForm.controls['username'].touched">Comment can't be empty</div>
+<div align="center" class="col-md-6 login-container">
+  <form [formGroup]="commentForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+    <label>Insert comment: </label>
+      <input type="text"  class="form-control" formControlName="comment" id="newComment" autocomplete="off">
+      <div class="error" *ngIf="commentForm.controls['comment'].hasError('required')">Comment can't be empty</div>
     </div>
+    <button > Add comment :) </button>
+  </form>
 </div>
