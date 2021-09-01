@@ -25,7 +25,6 @@ export class LoginComponent implements OnInit {
   ) {}
 
 
-
   onSubmit() {
     if (this.loginForm.invalid) {
       return;
@@ -40,13 +39,44 @@ export class LoginComponent implements OnInit {
         window.sessionStorage.setItem('token', JSON.stringify(data)); // token je set u session storage
         console.log(window.sessionStorage.getItem('token'));
         this.router.navigate(['welcome']);
-      },
-      (error: { error: { error_description: any } }) => {
-        alert(error.error.error_description);
+
+
+        // this.appService.getUser().subscribe(
+        //   (res: any) => {
+        //     //this.name = res;
+        //     //sessionStorage.setItem('username', this.name);
+        //     console.log("DATA  "+ res);
+        //
+        //   },
+        //   (error: { error: { error_description: any } }) => {
+        //     alert(error.error.error_description);
+        //   }
+        // );
+       // this.getRoleAndName();
       }
     );
   }
 
+ /* getRoleAndName(){
+    this.appService.getUser().subscribe(
+    (data: any) => {
+      window.sessionStorage.setItem('roleANDname', JSON.stringify(data));
+      this.namerole =  data;
+      console.log('DATA: ' + data);
+      console.log('name role : ' + this.namerole);
+      console.log(window.sessionStorage.getItem('roleANDname'));
+      if (window.sessionStorage.getItem('roleANDname')){
+        this.router.navigate(['welcome']);
+      }
+      else{
+        this.router.navigate(['admin']);
+      }// token je set u session storage
+    },
+      (error: { error: { error_description: any } }) => {
+        alert(error.error.error_description);
+      }
+    );
+  }*/
   ngOnInit() {
     window.sessionStorage.removeItem('token');
     this.loginForm = this.formBuilder.group({

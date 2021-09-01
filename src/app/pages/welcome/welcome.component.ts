@@ -4,6 +4,10 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {HttpParams} from '@angular/common/http';
 
+export class RoleUsername {
+  username: string;
+  role: string;
+}
 @Component({
   selector: 'app-welcome',
   templateUrl: './welcome.component.html',
@@ -21,6 +25,7 @@ export class WelcomeComponent implements OnInit {
     private appService: AppService
   ) {}
 
+  namerole: RoleUsername;
   name = '';
   movie = '';
 
@@ -32,7 +37,8 @@ export class WelcomeComponent implements OnInit {
     });
     this.appService.getUser().subscribe(
       (data: any) => {
-        this.name = data;
+        this.namerole = data;
+        console.log("DATA  "+ data);
         sessionStorage.setItem('username', this.name);
       },
       (error: { error: { error_description: any } }) => {
