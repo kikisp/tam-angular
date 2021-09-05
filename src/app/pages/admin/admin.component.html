@@ -1,1 +1,38 @@
-<p>admin works!</p>
+<p>WELCOME ADMIN!</p>
+
+<body>
+
+<!-- Sidebar -->
+
+<div>
+  <button  (click)="getUsers()" > List all users </button><br><br>
+  <button  (click)="addNewUser()"> Add new user </button><br><br>
+  <button  (click)="getMovies()"> List all movies </button><br><br>
+
+</div>
+
+
+<!-- Page Content -->
+<div style="margin-left:25%">
+
+  <div>
+    <h1>My Page</h1>
+  </div>
+
+  <div style="font-family:'cursive">
+    <div *ngIf =users!=''>
+      <ngx-json-viewer  [json]="users" [expanded]="true"></ngx-json-viewer>
+    </div>
+    <div>
+      Users
+    </div>
+    <div></div>
+  </div>
+
+  <ul>
+    <li *ngFor="let user of users">
+      {{user.username}} -- {{user.role}} <button (click)="changeUserRole()">Change role</button></li>
+  </ul>
+</div>
+
+</body>

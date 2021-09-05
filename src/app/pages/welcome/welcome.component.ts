@@ -30,7 +30,6 @@ export class WelcomeComponent implements OnInit {
     private appService: AppService
   ) {}
 
-  namerole: RoleUsername;
   name = '';
   movie = '';
 
@@ -42,9 +41,16 @@ export class WelcomeComponent implements OnInit {
     });
     this.appService.getUser().subscribe(
       (data: any) => {
+        this.name =  data.username;
         sessionStorage.setItem('username', data.username);
         sessionStorage.setItem('role', data.role);
-        if ()
+        // tslint:disable-next-line:no-conditional-assignment
+        if (data.role === 'ROLE_USER'){
+          this.router.navigate(['welcome']);
+        }
+        else{
+          this.router.navigate(['admin']);
+        }
       },
       (error: { error: { error_description: any } }) => {
         alert(error.error.error_description);

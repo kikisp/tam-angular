@@ -29,6 +29,17 @@ export class AppService {
       responseType: 'json',
     });
   }
+
+  getUsers() {
+    const endpoint =
+      'users?access_token=' +
+      JSON.parse(window.sessionStorage.getItem('token')).access_token;
+    const base = 'http://localhost:8080/';
+    const url = base + endpoint;
+    return this.http.get(url, {
+      responseType: 'json',
+    });
+  }
   searchMovies(title, year) {
     if (title === null && year === null) {
       return this.http.get('http://www.omdbapi.com/?');
@@ -64,13 +75,7 @@ export class AppService {
     });
   }
 
-  getUsers() {
-    return this.http.get(
-      this.baseUrl +
-        'user?access_token=' +
-        JSON.parse(window.sessionStorage.getItem('token')).access_token
-    );
-  }
+
 
   getTest(path: String) {
     let endpoint = 'public';

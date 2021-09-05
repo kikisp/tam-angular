@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,6 +11,8 @@ import { WelcomeComponent } from './pages/welcome/welcome.component';
 import { NgxJsonViewerModule } from 'ngx-json-viewer';
 import { MovieComponent } from './pages/movie/movie/movie.component';
 import { AdminComponent } from './pages/admin/admin.component';
+import {MatButtonModule} from '@angular/material/button';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
 
 
 @NgModule({
@@ -21,8 +23,11 @@ import { AdminComponent } from './pages/admin/admin.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    NgxJsonViewerModule
+    NgxJsonViewerModule,
+    MatButtonModule,
+    MatButtonToggleModule
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [AppService],
   bootstrap: [AppComponent],
 })
