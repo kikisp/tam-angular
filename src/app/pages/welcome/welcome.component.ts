@@ -9,10 +9,25 @@ import {
 import { Router } from '@angular/router';
 import { HttpParams } from '@angular/common/http';
 
-export class RoleUsername {
+export interface UserData {
   username: string;
+  email: string;
   role: string;
 }
+export interface Movie{
+  idImdb: string;
+  title: string;
+  year: string;
+  genre: string;
+  type: string;
+  language: string;
+  country: string;
+  created: string;
+  updated: string;
+  id: number;
+  persistent: string;
+}
+
 @Component({
   selector: 'app-welcome',
   templateUrl: './welcome.component.html',
@@ -30,21 +45,20 @@ export class WelcomeComponent implements OnInit {
     private appService: AppService
   ) {}
 
-  name = '';
   movie = '';
-
+  loggedUser: string;
   items;
   ngOnInit(): void {
+    this.loggedUser = window.sessionStorage.getItem('username');
     this.welcomeForm = this.formBuilder.group({
       title: ['', Validators.compose([Validators.required])],
       year: [''],
     });
     this.appService.getUser().subscribe(
       (data: any) => {
-        this.name =  data.username;
         sessionStorage.setItem('username', data.username);
         sessionStorage.setItem('role', data.role);
-        // tslint:disable-next-line:no-conditional-assignment
+
         if (data.role === 'ROLE_USER'){
           this.router.navigate(['welcome']);
         }
@@ -67,7 +81,7 @@ export class WelcomeComponent implements OnInit {
       .set('year', this.welcomeForm.controls.year.value)
       .set('grant_type', 'password');
     this.appService
-      .searchMovies(
+      .searchMovieOmdbApi(
         this.welcomeForm.controls.title.value,
         this.welcomeForm.controls.year.value
       )

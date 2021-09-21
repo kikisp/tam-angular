@@ -1,0 +1,31 @@
+<div class="row">
+
+  <div class="col-md-6 login-container">
+    <h2 style="margin: auto">Login </h2>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="username">Insert username:</label>
+        <input type="text" class="form-control" formControlName="new_username" id="username" autocomplete="off">
+        <div class="error" *ngIf="registerForm.controls['new_username'].hasError('required') && registerForm.controls['new_username'].touched">Username is required</div>
+      </div>
+      <div class="form-group">
+        <label for="email"> Insert email:</label>
+        <input type="text" class="form-control" formControlName="new_email" id="email" autocomplete="off">
+        <div class="error" *ngIf="registerForm.controls['new_email'].hasError('required') && registerForm.controls['new_email'].touched">Email is required</div>
+      </div>
+      <div class="form-group">
+        <label for="pwd"> Insert password:</label>
+        <input type="password" class="form-control" formControlName="new_password" id="pwd" autocomplete="off">
+        <div class="error" *ngIf="registerForm.controls['new_password'].hasError('required') && registerForm.controls['new_password'].touched">Password is required</div>
+      </div>
+      <button class="btn btn-success" [disabled]="registerForm.invalid">Sign up</button>
+    </form>
+  </div>
+
+  <div *ngIf="successMessage != ''">
+    <div>
+      Poruka {{successMessage}}
+    </div>
+  </div>
+
+</div>

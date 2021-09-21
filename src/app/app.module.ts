@@ -13,10 +13,14 @@ import { MovieComponent } from './pages/movie/movie/movie.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import {MatButtonModule} from '@angular/material/button';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RegisterComponent } from './pages/register/register.component';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatTableModule} from '@angular/material/table';
 
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, TestComponent, WelcomeComponent, MovieComponent, AdminComponent],
+  declarations: [AppComponent, LoginComponent, TestComponent, WelcomeComponent, MovieComponent, AdminComponent, RegisterComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -25,7 +29,10 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
     ReactiveFormsModule,
     NgxJsonViewerModule,
     MatButtonModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    BrowserAnimationsModule,
+    MatMenuModule,
+    MatTableModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [AppService],

@@ -5,13 +5,16 @@ import { TestComponent } from './pages/test/test.component';
 import {WelcomeComponent} from './pages/welcome/welcome.component';
 import {MovieComponent} from './pages/movie/movie/movie.component';
 import {AdminComponent} from './pages/admin/admin.component';
+import {RegisterComponent} from './pages/register/register.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'test', component: TestComponent },
   { path: 'welcome', component: WelcomeComponent },
   { path: 'movie', component: MovieComponent },
-  { path: 'admin', component: AdminComponent }
+  { path: 'admin', component: AdminComponent },
+  { path: 'register', component: RegisterComponent }
+
 
 ];
 

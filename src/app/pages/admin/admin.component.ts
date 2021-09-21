@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { AppService } from '../../core/app.service';
-import {RoleUsername} from '../welcome/welcome.component';
+import {Component, OnInit} from '@angular/core';
+import {AppService} from '../../core/app.service';
+import {Movie, UserData} from '../welcome/welcome.component';
+import {tap} from 'rxjs/operators';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-admin',
@@ -10,29 +12,66 @@ import {RoleUsername} from '../welcome/welcome.component';
 export class AdminComponent implements OnInit {
 
   constructor(
-    private appService: AppService
+    private appService: AppService,
+    private router: Router
   ) {
 
   }
-  users: RoleUsername[];
+
+  readonly displayedColumns = ['username', 'email', 'role', 'actions'];
+  readonly displayedColumnsMovies: ['id_imdb', 'title', 'year', 'genre',
+    'type', 'language', 'country', 'averageMark', 'viewComments'];
+  users: UserData[];
+  allMovies: Movie[];
+  loggedUser: string;
 
 
   ngOnInit(): void {
+    this.loggedUser = window.sessionStorage.getItem('username');
   }
 
   getUsers() {
-    this.appService.getUsers().subscribe(
+    this.appService.getUsers()
+      .pipe(
+        tap(() => this.allMovies = null),
+      )
+      .subscribe((data: any) => {
+          this.users = data;
+        },
+        (error: { error: { error_description: any } }) => {
+          alert(error.error.error_description);
+        }
+      );
+  }
+
+  getAllMovies() {
+    this.appService.getAllMovies()
+      .pipe(
+        tap(() => this.users = null),
+      )
+      .subscribe(
+        (data: any) => {
+          this.allMovies = data;
+          },
+        (error: { error: { error_description: any } }) => {
+          alert(error.error.error_description);
+        }
+      );
+  }
+
+  addComment(user) {
+    console.log(' user: ', user);
+  }
+
+  seeCommentsForMovie() {
+    this.appService.getMovieComments().subscribe(
       (data: any) => {
         console.log(data);
-        window.sessionStorage.setItem('users', JSON.stringify(data));
+        window.sessionStorage.setItem('allMovies', JSON.stringify(data));
 
-        this.users = data;
+        this.allMovies = data;
 
-        console.log(this.users);
-        /*this.users = new Map()
-          .set('username', data.username)
-          .set('email', data.email)
-          .set('role', data.role);*/
+        console.log(this.allMovies);
       },
       (error: { error: { error_description: any } }) => {
         alert(error.error.error_description);
@@ -40,15 +79,20 @@ export class AdminComponent implements OnInit {
     );
   }
 
-  addNewUser() {
+  logout() {
+    window.sessionStorage.clear();
+    this.router.navigate(['login']);
+  }
+
+  filterMovies() {
 
   }
 
-  getMovies() {
+  getAverageMarkForMovie() {
+}
 
-  }
+getAllCommentsForMovie()
+{
 
-  changeUserRole() {
-
-  }
+}
 }
